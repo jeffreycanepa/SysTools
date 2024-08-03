@@ -1,3 +1,23 @@
+"""
+SysTools.py.
+
+This is a tool for running a battery of system diagnostics from Python.  Script is from 
+geeksided.com (https://geeksided.com/posts/detect-and-fix-issues-early-a-python-guide-to-system-diagnostics-01j0sbv2r9sa).
+
+Script is meant to be run on Windows/Linux systems, but can be exectuted on OS X (Darwin) as well.
+Added MacOS check for updates
+
+Required:
+    os
+    platform
+    psutil
+    subprocess
+    request
+    speedtest
+
+Jeff Canepa 8/2/2024
+"""
+
 import os
 
 import platform
@@ -126,7 +146,7 @@ def check_security_updates():
 
     else:
 
-        print("Security update check not supported for this OS.")
+        print("\tSecurity update check not supported for this OS.")
 
 def scan_for_malware():
 
@@ -144,7 +164,7 @@ def scan_for_malware():
 
     else:
 
-        print("Malware scan not supported for this OS.")
+        print("\tMalware scan not supported for this OS.")
 
 def check_software_updates():
 
@@ -160,9 +180,13 @@ def check_software_updates():
 
         os.system("apt list --upgradable")
 
+    elif platform.system() == "Darwin":
+
+        os.system("softwareupdate -l")
+    
     else:
 
-        print("Software update check not supported for this OS.")
+        print("\tSoftware update check not supported for this OS.")
 
 if __name__ == "__main__":
 
