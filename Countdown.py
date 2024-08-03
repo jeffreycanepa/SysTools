@@ -61,6 +61,8 @@ input_label_minutes.pack()
 
 time_entry_minutes = tk.Entry(root)
 
+time_entry_minutes.insert(0, 0)
+
 time_entry_minutes.pack()
 
 input_label_seconds = tk.Label(root, text="Enter seconds:")
@@ -68,6 +70,8 @@ input_label_seconds = tk.Label(root, text="Enter seconds:")
 input_label_seconds.pack()
 
 time_entry_seconds = tk.Entry(root)
+
+time_entry_seconds.insert(0, 0)
 
 time_entry_seconds.pack()
 
@@ -77,8 +81,7 @@ timer_label = tk.Label(root, text="00:00", font=("Helvetica", 48))
 
 timer_label.pack()
 
-# Create the start button
-
+# Create the start button.  Bind return key to button to start timer.
 def start_timer():
 
     try:
@@ -95,7 +98,12 @@ def start_timer():
 
         messagebox.showerror("Invalid input", "Please enter valid numbers for minutes and seconds")
 
+def on_return(event):
+    start_timer()
+
 start_button = tk.Button(root, text="Start", command=start_timer)
+
+start_button.bind('<Return>', on_return)
 
 start_button.pack()
 
