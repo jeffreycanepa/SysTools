@@ -51,7 +51,7 @@ root.title("Countdown Timer")
 
 # Set the window size
 
-root.geometry("300x200")
+root.geometry("200x200")
 
 # Create the input fields and labels
 
@@ -59,7 +59,7 @@ input_label_minutes = tk.Label(root, text="Enter minutes:")
 
 input_label_minutes.pack()
 
-time_entry_minutes = tk.Entry(root)
+time_entry_minutes = tk.Entry(root, width=5)
 
 time_entry_minutes.insert(0, 0)
 
@@ -69,7 +69,7 @@ input_label_seconds = tk.Label(root, text="Enter seconds:")
 
 input_label_seconds.pack()
 
-time_entry_seconds = tk.Entry(root)
+time_entry_seconds = tk.Entry(root, width=5)
 
 time_entry_seconds.insert(0, 0)
 
