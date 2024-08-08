@@ -78,7 +78,10 @@ def get_disk_usage():
 def get_network_status():
     print("\nAssessing network connectivity and speed...")
     hostname = "google.com"
-    response = os.system(f"ping -c 1 {hostname}")
+    if platform.system() == "Windows":
+        response = os.system(f"ping -n 1 {hostname}")
+    else:
+        response = os.system(f"ping -c 1 {hostname}")
 
     if response == 0:
         print(f"{hostname} is reachable")
@@ -102,7 +105,10 @@ def check_security_updates():
     print("\nVerifying the presence of security updates...")
 
     if platform.system() == "Windows":
-        subprocess.run(["powershell", "Get-WindowsUpdate"])
+        if platform.release() == "10":
+            print("\tThe Check for Security Updates does not work on Windows 10/11.")
+        else:
+            subprocess.run(["powershell", "Get-WindowsUpdate"])
     elif platform.system() == "Linux":
         os.system("sudo apt update && sudo apt upgrade -s")
     else:
@@ -126,7 +132,10 @@ def check_software_updates():
     print("\nChecking for software updates...")
 
     if platform.system() == "Windows":
-        subprocess.run(["powershell", "Get-Package -ProviderName Programs | ForEach-Object { $_.Name; Get-Package -ProviderName Programs -Name $_.Name -IncludeWindowsInstaller -AllVersions | ForEach-Object { $_.Name, $_.Version } }"])
+        if platform.release() == "10":
+            print("\tThe Check for Software Updates does not work on Windows 10/11")
+        else:
+            subprocess.run(["powershell", "Get-Package -ProviderName Programs | ForEach-Object { $_.Name; Get-Package -ProviderName Programs -Name $_.Name -IncludeWindowsInstaller -AllVersions | ForEach-Object { $_.Name, $_.Version } }"])
     elif platform.system() == "Linux":
         os.system("apt list --upgradable")
     elif platform.system() == "Darwin":
